@@ -14,6 +14,8 @@ func main() {
 	portFlag := flag.Int("port", config.Port, "port to serve on")
 	adminpPortFlag := flag.Int("adminPort", config.AdminPort, "port to serve admin api on")
 
+	flag.Parse()
+
 	config.Port = *portFlag
 	config.AdminPort = *adminpPortFlag
 
