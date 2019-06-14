@@ -1,7 +1,7 @@
 # I Serve You
 
 I server you is a test/fake/mock REST API server that will always serve you.
-It exposes 2 endpoints, on different ports, one will accept any Request, 
+It exposes 2 endpoints, on different ports, one will accept any request, 
 record this request and respond with a success response code unless configured otherwise.
 The other returns all previous requests and reponses for inspection and investigation and allows
 for the log to be cleared.
@@ -75,7 +75,7 @@ And the server will respond like so:
 When the server is started, one or more matcher functions can be passed in. This will allow
 you to specify specific responses to a given type of request
 
-See [a relative link](examples/matchers/example.go) for an example of how to bootstrap such
+See [example](examples/matchers/example.go) of how to bootstrap such
 server.
 
 A matcher can be as simple or complicated as required, for example:
@@ -132,7 +132,7 @@ A matcher can be as simple or complicated as required, for example:
 ```
 
 ### Embeded
-See [a relative link](examples/matchers/example.go)
+See [example](examples/matchers/example.go)
 
 
 ## TODO
