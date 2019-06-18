@@ -1,12 +1,12 @@
 # I Serve You
 
-I server you is a test/fake/mock REST API server that will always serve you.
+I serve you is a test/fake/mock REST API server that will always serve you.
 It exposes 2 endpoints, on different ports, one will accept any request, 
 record this request and respond with a success response code unless configured otherwise.
 The other returns all previous requests and reponses for inspection and investigation and allows
 for the log to be cleared.
 
-It is a very simple GO program, with no 3rd party dependencies and can be used stand alone or
+It is a very simple Go program, with no 3rd party dependencies and can be used stand alone or
 as part of another process, for example as part of an integration test suite.
 The requests are recorded in memory and will disappear with the process. There is currently no
 persistant backing.
@@ -143,4 +143,4 @@ See [example](examples/matchers/example.go)
 - Allowing matchers to be configured and persisted in config.
 - Support for creating matchers using the admin UI above.
 
-What to see anything else? Raise a ticket or Pull Request
+Want to see anything else? Raise an Issue or Pull Request
