@@ -49,7 +49,7 @@ func Start(config *Config, matchers ...func(request *http.Request) (bool, func(h
 }
 
 type IServeYouHandler struct {
-	requests chan *ServedInfo
+	requests chan<- *ServedInfo
 	matchers []func(request *http.Request) (bool, func(http.ResponseWriter))
 }
 

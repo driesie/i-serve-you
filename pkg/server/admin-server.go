@@ -39,7 +39,7 @@ func (h *AdminHandler) DeleteRequests(res http.ResponseWriter, req *http.Request
 	fmt.Fprintln(res, "Deleted")
 }
 
-func (h *AdminHandler) Listen(requestChannel chan *ServedInfo, interval time.Duration) {
+func (h *AdminHandler) Listen(requestChannel <-chan *ServedInfo, interval time.Duration) {
 	go func() {
 		for {
 			select {
