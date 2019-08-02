@@ -8,11 +8,13 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"time"
 )
 
 type Config struct {
-	Port      int
-	AdminPort int
+	Port           int
+	AdminPort      int
+	ListenInterval time.Duration
 }
 
 func NewConfig() *Config {
@@ -20,6 +22,7 @@ func NewConfig() *Config {
 	// defaults
 	c.Port = 8080
 	c.AdminPort = 8081
+	c.ListenInterval = 200 * time.Millisecond
 
 	return c
 }
@@ -31,7 +34,7 @@ func Start(config *Config, matchers ...func(request *http.Request) (bool, func(h
 	adminHandler := &AdminHandler{
 		[]*ServedInfo{},
 	}
-	adminHandler.Listen(requestChannel)
+	adminHandler.Listen(requestChannel, config.ListenInterval)
 	go func() {
 		fmt.Printf("Starting server on port %v.\n", config.Port)
 		http.ListenAndServe(fmt.Sprintf(":%d", config.Port), &IServeYouHandler{requestChannel, matchers})
@@ -46,7 +49,7 @@ func Start(config *Config, matchers ...func(request *http.Request) (bool, func(h
 }
 
 type IServeYouHandler struct {
-	requests chan *ServedInfo
+	requests chan<- *ServedInfo
 	matchers []func(request *http.Request) (bool, func(http.ResponseWriter))
 }
 
@@ -90,7 +93,10 @@ func (h IServeYouHandler) ServeHTTP(res http.ResponseWriter, req *http.Request) 
 		response.WriteHeader(http.StatusOK)
 	}
 
-	data, _ := ioutil.ReadAll(req.Body)
+	var data []byte
+	if nil != req.Body {
+		data, _ = ioutil.ReadAll(req.Body)
+	}
 	response.CopyHeaders()
 	info := &ServedInfo{
 		Request: &RequestInfo{

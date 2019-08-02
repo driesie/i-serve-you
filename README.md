@@ -3,18 +3,18 @@
 I serve you is a test/fake/mock REST API server that will always serve you.
 It exposes 2 endpoints, on different ports, one will accept any request, 
 record this request and respond with a success response code unless configured otherwise.
-The other returns all previous requests and reponses for inspection and investigation and allows
+The other returns all previous requests and responses for inspection and investigation and allows
 for the log to be cleared.
 
 It is a very simple Go program, with no 3rd party dependencies and can be used stand alone or
 as part of another process, for example as part of an integration test suite.
 The requests are recorded in memory and will disappear with the process. There is currently no
-persistant backing.
+persistent backing.
 It is meant to be used for testing and debugging and is purposely kept simple.
 
 ## Download/Install
 ```bash
-go get instructions TBC once repository is public
+go get TBC
 ```
 
 Alternatively, git clone the repository.
@@ -134,7 +134,6 @@ A matcher can be as simple or complicated as required, for example:
 ### Embeded
 See [example](examples/matchers/example.go)
 
-
 ## TODO
 - CI and publish binaries for Mac, Windows and Linux
 
@@ -142,5 +141,9 @@ See [example](examples/matchers/example.go)
 - A html/JavaScript interface for the admin endpoint would be nice
 - Allowing matchers to be configured and persisted in config.
 - Support for creating matchers using the admin UI above.
+- Provide pre-defined matchers that support:
+    - proxying requests
+    - delay responses / variable response times
+    - un-reliable responses (e.g. drop x% of requests)
 
 Want to see anything else? Raise an Issue or Pull Request
