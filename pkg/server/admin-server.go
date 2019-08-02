@@ -39,16 +39,20 @@ func (h *AdminHandler) DeleteRequests(res http.ResponseWriter, req *http.Request
 	fmt.Fprintln(res, "Deleted")
 }
 
-func (h *AdminHandler) Listen(requestChannel chan *ServedInfo) {
+func (h *AdminHandler) Listen(requestChannel chan *ServedInfo, interval time.Duration) {
 	go func() {
 		for {
 			select {
 			case request := <-requestChannel:
+				if nil == request {
+					return
+				}
+
 				fmt.Printf("Receiving %s\n", request.Request.Path)
 
 				h.requests = append([]*ServedInfo{request}, h.requests...)
 			default:
-				time.Sleep(time.Duration(100000000))
+				time.Sleep(interval)
 			}
 		}
 	}()
